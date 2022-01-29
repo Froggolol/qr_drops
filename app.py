@@ -3,7 +3,6 @@ from fastapi import FastAPI
 import sqlalchemy as db
 from pydantic import BaseModel
 from datetime import datetime
-from collections import ChainMap
 
 app = FastAPI()
 
@@ -36,7 +35,7 @@ async def confirm_size(reservation: Reservation):
         assert len(reservation.phone) == 8
         assert 2 <= len(reservation.size.replace('.','')) <= 3
     except AssertionError:
-        return {'error': True, 'message': 'Phonenumber must be 8 characters long example: 12345678 and size must be from the list'}
+        return {'error': True, 'message': 'Phone must be 8 characters long example: 12345678 and size must be from the list'}
 
     if not _is_not_claimed(reservation.url_token):
         return {'error': True, 'message': 'This code has already been used try to find another code GOOD LUCK!'}
